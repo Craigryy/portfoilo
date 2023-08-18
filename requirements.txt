@@ -1,2 +1,9 @@
 flask 
 pymongo
+Flask-SQLAlchemy
+Flask-Cors
+SQLAlchemy
+psycopg2-binary
+isort
+black 
+Flask-Uploads
