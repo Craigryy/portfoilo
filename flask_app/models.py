@@ -1,13 +1,11 @@
 from config import db
-from flask_uploads import UploadSet, configure_uploads, IMAGES
 
-photos = UploadSet('photos', IMAGES)
 
 class Base(db.Model):
     
     __abstract__ = True
 
-    id_user= db.Column('id', db.Integer, primary_key=True)
+    id = db.Column('id', db.Integer, primary_key=True)
 
     def save(self):
 
@@ -42,11 +40,6 @@ class BlogPost(Base):
     content = db.Column(db.String(300))
     category_id = db.Column(db.Integer, db.ForeignKey('categories.id'))
     photo = db.Column(db.String(255))  
-
-    def save_photo(self, photo):
-        filename = photos.save(photo)
-        self.photo = filename
-        db.session.commit()
 
     def to_json(self):
         """

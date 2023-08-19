@@ -1,22 +1,28 @@
 from flask import Flask, request, make_response
-from pymongo import MongoClient
-from flask_uploads import configure_uploads, IMAGES
 from config import db
-from Flask_app.categories import category_bp
-from Flask_app.blogs import blog_bp
-from Flask_app.view import views_bp
+from flask_app.categories import category_bp
+from flask_app.blogs import blog_bp
+from flask_cors import CORS
+from config import (
+    POSTGRES_HOST,
+    POSTGRES_DB,
+    POSTGRES_USER,
+    POSTGRES_PASSWORD,
+    db,
+    POSTGRES_SECRET_KEY,
+)
 
 def create_app():
 
     app = Flask(__name__) 
     CORS(app) 
 
-    # Initialize the Flask-Uploads extension
-    from Flask_app.extensions import photos  # Import your UploadSet instance
-    configure_uploads(app, photos)
+    # # Initialize the Flask-Uploads extension
+    # from Flask_app.extensions import photos  # Import your UploadSet instance
+    # configure_uploads(app, photos)
 
     # create an in-memory database
-    app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///:memory:'
+    app.config["SQLALCHEMY_DATABASE_URI"] = f"postgresql://{POSTGRES_USER}:{POSTGRES_PASSWORD}@{POSTGRES_HOST}/{POSTGRES_DB}"
     app.config['SQLALCHEMY_TRACK_NOTIFICATION'] = False
     app.config['SECRET_KEY'] = 'portfolio'
 
@@ -28,8 +34,7 @@ def create_app():
     # Register blueprints
     app.register_blueprint(category_bp)
     app.register_blueprint(blog_bp)
-    app.register_blueprint(views_bp)
-
+    
     @app.before_request
     def before_request():
         if request.method == "OPTIONS" or request.method == "options":

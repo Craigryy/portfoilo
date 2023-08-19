@@ -1,11 +1,11 @@
 from config import db 
 import datetime
 from .models import Categories
-from flask import Flask,blueprints,make_response,jsonify
+from flask import Flask,Blueprint,make_response,jsonify,request
 
 category_bp = Blueprint('category_bp', __name__)
 
-@category_bp.route('/categories',methods=['GET'])
+@category_bp.route('/categories/',methods=['GET'])
 def list_all_categories():
 
     categories_files = Categories.query.all()
@@ -53,7 +53,7 @@ def update_category (id):
         return make_response(jsonify({'message': error_message}), 500)
 
 
-@category_bp.route('categories/<int:id>',methods=['DELETE'])
+@category_bp.route('/categories/<int:id>',methods=['DELETE'])
 def delete_category(id):
     try:
         category = Categories.query.filter_by(id=id).delete()
