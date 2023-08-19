@@ -3,7 +3,7 @@ import datetime
 from .models import Categories
 from flask import Flask,blueprints,make_response,jsonify
 
-category_bp = Blueprint('cat', __name__)
+category_bp = Blueprint('category_bp', __name__)
 
 @category_bp.route('/categories',methods=['GET'])
 def list_all_categories():

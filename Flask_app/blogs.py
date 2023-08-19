@@ -2,6 +2,8 @@ from config import db
 import datetime
 from .models import BlogPost
 from flask import Flask,blueprints,make_response,jsonify
+from flask import send_from_directory
+from flask import request
 
 blog_bp = Blueprint('blog_bp', __name__)
 
@@ -27,4 +29,23 @@ def get_one_blog(id):
                 })
     except Exception as e:
         print (e,"error")
+
+
+
+@blog_bp.route('/upload', methods=['POST'])
+def upload_photo():
+    if 'photo' in request.files:
+        photo = request.files['photo']
+        if photo.filename != '':
+            filename = photos.save(photo)
+            # Save the filename to the database or perform other actions
+            return 'Photo uploaded successfully'
+    return 'No photo selected'
+
+
+@app.route('/uploads/<filename>')
+def uploaded_photo(filename):
+    return send_from_directory(app.config['UPLOADED_PHOTOS_DEST'], filename)
+
+
 
