@@ -9,10 +9,7 @@ function App() {
   return (
     <div className="App">
       <Navbar/>
-      <Tabs
-       categories={categories}
-       blog = {blog}
-       />
+      <Tabs/>
        <br/>
       <Footer/>
    

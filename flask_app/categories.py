@@ -7,13 +7,18 @@ category_bp = Blueprint('category_bp', __name__)
 
 @category_bp.route('/categories/',methods=['GET'])
 def list_all_categories():
-
+    """
+    List all categories.
+    """
     categories_files = Categories.query.all()
     return make_response(jsonify([category.to_json() for category in categories_files]), 200)
 
 
 @category_bp.route('/categories/<int:id>',methods=['GET'])
 def get_one_category(id):
+    """
+    Get a single category.
+    """
     try :
         category=Categories.query.filter_by(id=id).first()
         if not category or id is None:
@@ -31,6 +36,9 @@ def get_one_category(id):
 
 @category_bp.route('/categories/',methods=['POST'])
 def create_new_category ():
+    """
+    Create a category .
+    """
     json_data = request.get_json()
     name = json_data['name']
     category = Categories(name=name)
@@ -40,6 +48,9 @@ def create_new_category ():
 
 @category_bp.route('/categories/<int:id>',methods=['PUT'])
 def update_category (id):
+    """
+    Update a category.
+    """
     try:
         category = Categories.query.filter_by(id=id).first()
         if category:
@@ -55,6 +66,9 @@ def update_category (id):
 
 @category_bp.route('/categories/<int:id>',methods=['DELETE'])
 def delete_category(id):
+    """
+    Delete a category.
+    """
     try:
         category = Categories.query.filter_by(id=id).delete()
         if not category:
