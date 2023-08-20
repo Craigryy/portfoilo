@@ -65,7 +65,7 @@ class BlogPost(Base):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(100), nullable=False, unique=True)
     content = db.Column(db.String(300))
-    category_id = db.Column(db.Integer, db.ForeignKey('categories.id'))
+    category_id = db.Column(db.Integer, db.ForeignKey('Categories.id'))
 
     def to_json(self):
         """
