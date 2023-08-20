@@ -18,9 +18,34 @@ class Base(db.Model):
         db.session.delete(self)
         db.session.commit()
 
+class User(Base):
+    """
+    User model for authentication.
+    """
+    __tablename__ = "user"
+    id = db.Column(db.Integer, primary_key=True)
+    public_id = db.Column(db.String(100), unique=True)
+    name = db.Column(db.String(100))
+    password = db.Column(db.String(100))
+    admin = db.Column(db.Boolean)
+    category = db.relationship("Categories", backref="owner", lazy="dynamic")
+
+    def to_json(self):
+        """
+        Convert User object to a JSON representation.
+        """
+        return {
+            "id": self.id,
+            "name": self.name,
+            "public_id": self.public_id,
+            "password": self.password,
+            "admin": self.admin,
+        }
+
     
 class Categories(Base):
     """This is the model for categories"""
+    __tablename__ = "Categories"
     id = db.Column(db.Integer, primary_key=True)
     name =  db.Column(db.String(100), nullable=False , unique=True )
     post = db.relationship(
@@ -29,17 +54,18 @@ class Categories(Base):
 
     def to_json(self):
         """
-        Convert BookCategory object to a JSON representation.
+        Convert Categories object to a JSON representation.
         """
         return {"id": self.id, "name": self.name}
     
 
 class BlogPost(Base):
+    """Model for blog posts."""
+    __tablename__ = "BlogPost"
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(100), nullable=False, unique=True)
     content = db.Column(db.String(300))
     category_id = db.Column(db.Integer, db.ForeignKey('categories.id'))
-    photo = db.Column(db.String(255))  
 
     def to_json(self):
         """
@@ -49,6 +75,5 @@ class BlogPost(Base):
             "id": self.id,
             "name": self.name,
             "content": self.content,
-            "category_id": self.category_id,
-            "photo": self.photo
+            "category_id": self.category_id
         }
