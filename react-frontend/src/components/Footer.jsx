@@ -1,10 +1,14 @@
-import React from "react";
+import React, { useState } from "react";
 
 function Footer() {
   const year = new Date().getFullYear();
+  const [message,setMessage]= useState('');
+
+
   return (
     <footer>
       <h3>Get in touch</h3>
+      <br/>
       <ul className="social-links">
         <li className="nav-item">
           <a className="nav-link" href="http://instagram.com/craigry_/">

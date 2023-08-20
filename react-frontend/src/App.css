@@ -153,13 +153,24 @@ footer p {
 .social-links {
   text-align: center;
   list-style-type: none;
-  padding: 0;
   display: flex;
   justify-content: center; 
-  background-color: #F6F6F4;
 }
 
 .social-links li {
   margin: 0 0.5rem; 
+}
+
+.form-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.close-button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
 }
 

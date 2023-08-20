@@ -6,4 +6,5 @@ SQLAlchemy
 psycopg2-binary
 isort
 black 
-Flask-Uploads
+gunicorn
+SQLAlchemy
