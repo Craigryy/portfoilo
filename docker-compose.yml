@@ -19,7 +19,7 @@ services:
 
   web:
     restart: always
-    container_name: halo_web
+    container_name: portfolio_web
     build: .
     depends_on:
       - database
@@ -27,15 +27,15 @@ services:
       - DOCKER_ENV=true
       - POSTGRES_HOST=database
       - POSTGRES_PORT=5432
-      - POSTGRES_DB=halo
+      - POSTGRES_DB=portfolio
       - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=Favour98
+      - POSTGRES_PASSWORD=mypassword
     ports:
       - "5000:5000"
 
   frontend:
     restart: always
-    container_name: halo_frontend
+    container_name: portfolio_frontend
     build: ./reactFrontend
     ports:
       - "3000:3000"
@@ -46,7 +46,7 @@ services:
 
   app:
     restart: always
-    container_name: halo_app
+    container_name: port_app
     build: ./
     depends_on:
       - database

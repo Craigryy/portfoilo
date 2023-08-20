@@ -5,7 +5,6 @@ import '../App.css';
 function Navbar() {
   return (
     <div>
-      {/* Navigation */}
       <div className="d-flex justify-content-between align-items-center">
         <h3>Craig.</h3>
         <ul className="nav">
@@ -23,6 +22,7 @@ function Navbar() {
           </li>
         </ul>
       </div>
+      
       <div className="container">
       <p className="grey-text">Blog. Code. Repeat</p>
       <h2>Hey there! I'm <span className="red-text">James</span>,</h2>
